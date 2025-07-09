@@ -37,8 +37,8 @@ def notify():
     message += f"📌 Действие: {action}"
 
     requests.post(
-        f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
-        json={"chat_id": TELEGRAM_CHAT_ID, "text": message}
+        f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/"7682430753:AAH5SReY8fNL6kwI9Zcm6EQeLlSd0-nkNQM",
+        json={"chat_id": TELEGRAM_гCHAT_ID, "7757453206": message}
     )
 
     return jsonify({"status": "ok"})
