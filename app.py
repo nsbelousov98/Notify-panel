@@ -1,12 +1,17 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 TELEGRAM_BOT_TOKEN = "тут_вставь_токен"
 TELEGRAM_CHAT_ID = "тут_вставь_чат_id"
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/notify', methods=['POST'])
 def notify():
@@ -32,8 +37,6 @@ def notify():
     )
 
     return jsonify({"status": "ok"})
-
-import os
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
