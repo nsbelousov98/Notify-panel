@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Уведомления</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Управление ботом</h2>
+        <form method="post" action="/submit">
+            <input type="text" name="action" placeholder="Команда боту">
+            <button type="submit">Отправить</button><br><br>
+
+            <input type="text" name="question" placeholder="Вопрос от бота">
+            <button type="submit">Отправить</button><br><br>
+
+            <input type="text" name="link" placeholder="Ссылка на спектакль"><br>
+            <input type="text" name="card" placeholder="Номер карты"><br>
+            <input type="text" name="seat" placeholder="Выбор мест"><br>
+            <input type="text" name="ticket" placeholder="Билет (ссылка или инфа)"><br><br>
+
+            <button type="submit">Отправить всё</button>
+        </form>
+    </div>
+</body>
+</html>
