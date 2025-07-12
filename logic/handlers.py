@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("ADMIN_CHAT_ID")
+CHAT_ID = os.getenv("CHAT_ID")  
 
 bot = telegram.Bot(token=BOT_TOKEN)
 
@@ -23,4 +23,6 @@ def handle_submission(data):
         msg += f"🎟️ Места: {data['seat']}\n"
     if 'ticket' in data:
         msg += f"📎 Билет: {data['ticket']}\n"
-    bot.send_message(chat_id=CHAT_ID, text=msg)
+    
+    if msg:
+        bot.send_message(chat_id=CHAT_ID, text=msg)
