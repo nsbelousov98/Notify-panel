@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Уведомления</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="top-panel">
+        <form action="/submit" method="post">
+            <input type="text" name="bot_command" placeholder="Команда боту" required>
+            <button type="submit">Отправить</button>
+        </form>
+        <form action="/submit" method="post">
+            <input type="text" name="bot_question" placeholder="Вопрос от бота" required>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    {% for req in requests %}
+    <div class="card highlight">
+        {% for key, value in req.items() %}
+            <p><strong>{{ key }}:</strong> {{ value }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</body>
+</html>
