@@ -1,7 +1,7 @@
-services:
+  services:
   - type: web
     name: theatre-panel
     env: python
     buildCommand: ""
     startCommand: python app.py
-    pythonVersion: 3.10
+    pythonVersion: 3.10.13  
