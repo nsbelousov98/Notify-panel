@@ -2,58 +2,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Панель управления</title>
-    <style>
-        body { background: #111; color: #eee; font-family: sans-serif; padding: 20px; }
-        .panel { background: #1e1e1e; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        .question-box { border: 2px dashed orange; padding: 10px; margin-bottom: 20px; }
-        input, textarea, button { width: 100%; margin: 5px 0; padding: 8px; border-radius: 5px; border: none; }
-        button { background: #444; color: white; cursor: pointer; }
-        .toggle { background: gray; }
-        .toggle.active { background: green; }
-        .delete-btn { float: right; color: red; font-weight: bold; cursor: pointer; }
-    </style>
-    <script>
-        function toggle(btn) { btn.classList.toggle("active"); }
-    </script>
+    <title>Панель управления ботом</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
 </head>
 <body>
-    <h1>Уведомительная панель</h1>
+    <div class="container">
+        <h1>Панель управления</h1>
 
-    <div class="question-box">
-        <label>❓ Вопрос от бота:</label>
-        <input type="text" placeholder="Что ответить?"><button>Отправить</button>
-        <label>🔧 Команда боту:</label>
-        <input type="text" placeholder="Команда..."><button>Отправить</button>
-    </div>
+        <!-- Верхние блоки -->
+        <div class="top-block">
+            <div class="field">
+                <label>Команда боту</label>
+                <input type="text" id="bot-command" placeholder="Введите команду">
+                <button onclick="sendCommand()">Отправить</button>
+                <span class="status" id="cmd-status"></span>
+            </div>
 
-    <div class="panel">
-        <div><strong>Имя:</strong> Алексей (@alexdev) <span class="delete-btn">❌</span></div>
-        <div><strong>Город:</strong> Москва</div>
-        <div><strong>Дата и время спектакля:</strong> 20.07.2025, 20:00</div>
-
-        <label>Ссылка на спектакль:</label>
-        <input type="text"><button>Отправить</button>
-
-        <label>Выбор мест:</label>
-        <input type="text"><button>Отправить</button>
-
-        <label>Фото билета:</label>
-        <input type="file"><button>Отправить</button>
-
-        <label>Номер карты:</label>
-        <input type="text"><button>Отправить</button>
-
-        <div>
-            <button class="toggle" onclick="toggle(this)">✅ Купил</button>
-            <button class="toggle" onclick="toggle(this)">✉️ Написал в поддержку</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 1</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 2</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 3</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 4</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 5</button>
-            <button class="toggle" onclick="toggle(this)">🔁 Возврат 6</button>
+            <div class="field">
+                <label>Вопрос от бота</label>
+                <input type="text" id="bot-question" placeholder="Введите ответ">
+                <button onclick="sendQuestion()">Отправить</button>
+                <span class="status" id="qst-status"></span>
+            </div>
         </div>
+
+        <hr>
+
+        <!-- Карточки анкеты (автообновление каждые 5 секунд) -->
+        <div id="requests-container"></div>
     </div>
 </body>
 </html>
