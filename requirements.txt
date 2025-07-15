@@ -1,4 +1,4 @@
 flask
-python-dotenv
 telethon
-python-telegram-bot==13.15
+python-dotenv
+python-telegram-bot==20.3
