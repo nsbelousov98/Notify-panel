@@ -1,42 +1,42 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect
+from telethon import TelegramClient
 from dotenv import load_dotenv
-import telegram
 import os
+import asyncio
 
 load_dotenv()
 
+# Flask приложение
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-bot_token = os.getenv("BOT_TOKEN")
-chat_id = os.getenv("CHAT_ID")
+# Данные из .env
+api_id = int(os.getenv("API_ID"))
+api_hash = os.getenv("API_HASH")
+session_name = os.getenv("SESSION", "session_name")
+chat_id = int(os.getenv("CHAT_ID"))
 
-bot = telegram.Bot(token=bot_token)
+# Инициализация Telethon клиента
+client = TelegramClient(session_name, api_id, api_hash)
 
-# Хранилище заявок
-requests_data = []
+# Стартуем Telethon отдельно
+loop = asyncio.get_event_loop()
+loop.run_until_complete(client.start())
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", requests=requests_data)
-
-@app.route("/api/data")
-def api_data():
-    return jsonify({"requests": requests_data})
+    return render_template("index.html")
 
 @app.route("/send", methods=["POST"])
 def send():
     username = request.form.get("username")
     message = request.form.get("message")
     if username and message:
-        bot.send_message(chat_id=chat_id, text=f"📩 Отправлено @{username}: {message}")
-    return "OK"
-
-@app.route("/add_request", methods=["POST"])
-def add_request():
-    data = request.json
-    requests_data.append(data)
-    return jsonify({"status": "added"})
+        # Отправляем сообщение пользователю
+        loop.run_until_complete(client.send_message(username, message))
+        # Уведомляем тебя в личку
+        loop.run_until_complete(client.send_message(chat_id, f"📩 Отправлено @{username}: {message}"))
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
